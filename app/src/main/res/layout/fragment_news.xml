@@ -15,22 +15,39 @@
         android:layout_height="match_parent"
         tools:context=".NewsFragment">
 
+        <TextView
+            android:id="@+id/source_heading_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginEnd="16dp"
+            tools:text="Source Name"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/news_recycle_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:padding="4dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:listData="@{viewModel.newsResponse.articles}"
+            app:layout_constraintTop_toBottomOf="@+id/source_heading_textview"
+            app:newsListData="@{viewModel.newsResponse.articles}"
             tools:listitem="@layout/news_list_item" />
 
-        <ImageView
-            android:contentDescription="Status image"
-            android:id="@+id/status_image_view"
-            setStatusImage="@{viewModel.status}"
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:indeterminate="true"
+            android:contentDescription="Progress Bar"
+            android:id="@+id/status_progress_bar"
+            setStatusProgress="@{viewModel.status}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

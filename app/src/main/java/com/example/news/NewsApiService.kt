@@ -1,6 +1,7 @@
 package com.example.news
 
-import com.example.news.model.NewsResponse
+import com.example.news.model.category.NewsResponse
+import com.example.news.model.sources.SourcesResponse
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -16,7 +17,7 @@ private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
-val retrofit = Retrofit.Builder()
+val retrofit: Retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .build()
@@ -24,11 +25,22 @@ val retrofit = Retrofit.Builder()
 interface NewsApiService {
     @GET("top-headlines")
     suspend fun getTopHeadlines(
-        @Query("country") sources: String,
+        @Query("country") country: String,
         @Query("category") category: String,
         @Query("apiKey") apiKey: String
     ): NewsResponse
 
+    @GET("sources")
+    suspend fun getSources(
+        @Query("country") country: String,
+        @Query("apiKey") apiKey: String
+    ): SourcesResponse
+
+    @GET("top-headlines")
+    suspend fun getSpecificSources(
+        @Query("sources") source: String,
+        @Query("apiKey") apiKey: String
+    ): NewsResponse
 }
 
 object NewsApi {

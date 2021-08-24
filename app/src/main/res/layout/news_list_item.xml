@@ -7,14 +7,13 @@
 
         <variable
             name="article"
-            type="com.example.news.model.Article" />
+            type="com.example.news.model.category.Article" />
     </data>
 
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
         android:clickable="true"
         android:focusable="true"
         app:cardCornerRadius="8dp"
@@ -33,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:contentDescription="news image display"
-                android:scaleType="centerCrop"
+                android:scaleType="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

@@ -1,24 +1,23 @@
 package com.example.news.overview
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.news.databinding.NewsListItemBinding
-import com.example.news.model.Article
+import com.example.news.model.category.Article
 
-class NewsAdapter(val onClickListener: OnClickListener) :
+class NewsAdapter(private val onClickListener: OnClickListener) :
     ListAdapter<Article, NewsAdapter.NewsViewHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<Article>() {
         override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
-            return oldItem == newItem
+            return oldItem.title == newItem.title
         }
 
         override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
-            return oldItem.title == newItem.title
+            return oldItem == newItem
         }
     }
 

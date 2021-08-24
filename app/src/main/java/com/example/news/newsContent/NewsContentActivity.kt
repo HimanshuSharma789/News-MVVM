@@ -2,14 +2,13 @@ package com.example.news.newsContent
 
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.news.R
 import com.example.news.databinding.ActivityNewsContentBinding
-import com.example.news.model.Article
+import com.example.news.model.category.Article
 
 class NewsContentActivity : AppCompatActivity() {
 

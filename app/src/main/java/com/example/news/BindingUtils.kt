@@ -1,9 +1,8 @@
 package com.example.news
 
-import android.text.Html
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.core.text.HtmlCompat
@@ -11,16 +10,23 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.news.model.Article
-import com.example.news.overview.NetworkRequestStatus
+import com.example.news.model.category.Article
+import com.example.news.model.sources.Source
 import com.example.news.overview.NewsAdapter
+import com.example.news.sources.SourcesAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-@BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<Article>?) {
+@BindingAdapter("newsListData")
+fun bindNewsDataToRecyclerView(recyclerView: RecyclerView, data: List<Article>?) {
     val adapter = recyclerView.adapter as NewsAdapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("sourceListData")
+fun bindSourceDataToRecyclerView(recyclerView: RecyclerView, data: List<Source>?) {
+    val adapter = recyclerView.adapter as SourcesAdapter
     adapter.submitList(data)
 }
 
@@ -72,10 +78,12 @@ fun setNewsImage(imageView: ImageView, imageUrl: String?) {
             .load(imgUri)
             .apply(
                 RequestOptions()
-                    .placeholder(R.drawable.loading_animation)
+                    .placeholder(R.drawable.loading_img)
                     .error(R.drawable.ic_baseline_broken_image_24)
             )
+            .centerCrop()
             .into(imageView)
+        imageView.visibility = View.VISIBLE
     } else {
         imageView.visibility = View.GONE
     }
@@ -87,19 +95,21 @@ fun setNewsUrl(textview: TextView, url: String?) {
     textview.text = HtmlCompat.fromHtml(htmlWeb, HtmlCompat.FROM_HTML_MODE_COMPACT)
 }
 
-@BindingAdapter("setStatusImage")
-fun setStatusImage(imageView: ImageView, status: NetworkRequestStatus?) {
+
+enum class NetworkRequestStatus{LOADING, ERROR, DONE}
+@BindingAdapter("setStatusProgress")
+fun setStatusProgress(progressBar: ProgressBar, status: NetworkRequestStatus?) {
     when(status) {
         NetworkRequestStatus.LOADING -> {
-            imageView.visibility = View.VISIBLE
-            imageView.setImageResource(R.drawable.loading_animation)
+            progressBar.visibility = View.VISIBLE
+//            imageView.setImageResource(R.drawable.loading_animation)
         }
         NetworkRequestStatus.ERROR -> {
-            imageView.visibility = View.VISIBLE
-            imageView.setImageResource(R.drawable.ic_baseline_cloud_off_24)
+            progressBar.visibility = View.VISIBLE
+//            imageView.setImageResource(R.drawable.ic_baseline_cloud_off_24)
         }
         NetworkRequestStatus.DONE -> {
-            imageView.visibility = View.GONE
+            progressBar.visibility = View.GONE
         }
     }
 }

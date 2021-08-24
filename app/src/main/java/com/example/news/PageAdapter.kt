@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.news.overview.NewsFragment
 
 
-class PageAdapter(fragment: FragmentActivity) : FragmentStateAdapter(fragment) {
+class PageAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     private val categories = mutableListOf("technology", "business", "health", "science", "sports", "entertainment")
 

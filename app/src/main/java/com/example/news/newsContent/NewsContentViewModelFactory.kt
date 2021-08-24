@@ -3,7 +3,7 @@ package com.example.news.newsContent
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.news.model.Article
+import com.example.news.model.category.Article
 
 class NewsContentViewModelFactory(
     private val article: Article,

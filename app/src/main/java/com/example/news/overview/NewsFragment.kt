@@ -22,7 +22,14 @@ class NewsFragment : Fragment() {
     ): View {
         val binding = FragmentNewsBinding.inflate(inflater, container, false)
         val category = arguments?.getString("category") ?: ""
-        val viewModelFactory = NewsFragmentViewModelFactory(category)
+        val source = arguments?.getString("source") ?: ""
+        val sourceName = arguments?.getString("sourceName") ?: ""
+        val viewModelFactory = NewsFragmentViewModelFactory(category, source)
+
+        if(category == "" && source != "" && sourceName != "") {
+            binding.sourceHeadingTextview.visibility = View.VISIBLE
+            binding.sourceHeadingTextview.text = sourceName
+        }
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(NewsFragmentViewModel::class.java)
         binding.viewModel = viewModel

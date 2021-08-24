@@ -1,4 +1,4 @@
-package com.example.news.model
+package com.example.news.model.category
 
 import com.squareup.moshi.Json
 import java.io.Serializable
